@@ -1508,3 +1508,127 @@ button.modal-role:hover {
     min-height: 350px;
   }
 }
+
+
+/* =========================================
+ ALEXIS_ PASSANGER SEATS */
+
+ .passenger-seats-page {
+  min-height: 100vh;
+  padding: 40px 24px;
+  background: #f3f6fa;
+  color: #092849;
+}
+
+.passenger-seats-header,
+.passenger-seats-list {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.passenger-seats-header {
+  margin-bottom: 28px;
+}
+
+.passenger-seats-header h1 {
+  margin: 12px 0;
+}
+
+.passenger-seats-header button {
+  margin-top: 18px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #092849;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.passenger-seats-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.passenger-seat-card {
+  padding: 24px;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  background: white;
+}
+
+.passenger-seat-card h2 {
+  margin-bottom: 20px;
+}
+
+.passenger-seat-card dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.passenger-seat-card dt {
+  color: #526579;
+}
+
+.passenger-seat-card dd {
+  margin: 8px 0 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.seat-status {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.seat-status-available {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.seat-status-full {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (max-width: 480px) {
+  .passenger-seats-page {
+    padding: 24px 16px;
+  }
+
+  .passenger-seats-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.passenger-entry {
+  padding: 40px 24px;
+  text-align: center;
+  background: #f3f6fa;
+  color: #092849;
+}
+
+.passenger-entry p {
+  margin: 12px 0 20px;
+}
+
+.passenger-entry button {
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: #092849;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.passenger-entry button:hover {
+  background: #174875;
+}
