@@ -1,14 +1,13 @@
-﻿
-const AccessModal = ({
+﻿const AccessModal = ({
   accessOpen,
   setAccessOpen,
-
+  openPassenger,
 }) => {
-  if (!accessOpen) return null;
-
   const closeModal = () => {
     setAccessOpen(false);
   };
+
+  if (!accessOpen) return null;
 
   return (
     <div
@@ -46,8 +45,7 @@ const AccessModal = ({
         </div>
 
         <div className="access-cards modal-access-cards">
-          {/* PASSENGER */}
-          <article className="access-card disabled-access-card">
+          <article className="access-card">
             <img
               className="access-card-image"
               src="/images/passenger.png"
@@ -64,17 +62,19 @@ const AccessModal = ({
               <h3>Passenger</h3>
 
               <p>
-                View van availability, available seats,
-                and travel information.
+                Check available seats for your trip.
               </p>
 
-              <span className="card-link disabled-card-link">
+              <button
+                type="button"
+                className="card-link"
+                onClick={openPassenger}
+              >
                 Continue as Passenger →
-              </span>
+              </button>
             </div>
           </article>
 
-          {/* DRIVER */}
           <article className="access-card disabled-access-card">
             <img
               className="access-card-image"
@@ -92,8 +92,7 @@ const AccessModal = ({
               <h3>Driver</h3>
 
               <p>
-                Log in or create your driver account
-                to access your dashboard.
+                Driver access is coming soon.
               </p>
 
               <button
@@ -106,7 +105,6 @@ const AccessModal = ({
             </div>
           </article>
 
-          {/* DISPATCHER */}
           <article className="access-card disabled-access-card">
             <img
               className="access-card-image"
@@ -124,19 +122,23 @@ const AccessModal = ({
               <h3>Dispatcher</h3>
 
               <p>
-                Manage vehicle information and
-                terminal operations.
+                Dispatcher access is coming soon.
               </p>
 
-              <span className="card-link disabled-card-link">
+              <button
+                type="button"
+                className="card-link"
+                disabled
+              >
                 Continue as Dispatcher →
-              </span>
+              </button>
             </div>
           </article>
         </div>
 
         <p className="modal-note">
-          Role access will be available in a future update.
+          Passenger view is available. Seat records will
+          appear once connected to the dispatcher data.
         </p>
       </div>
     </div>
@@ -144,4 +146,3 @@ const AccessModal = ({
 };
 
 export default AccessModal;
-
