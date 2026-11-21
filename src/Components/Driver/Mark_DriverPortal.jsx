@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Mark_DriverAuth from "./Mark_DriverAuth";
 import Mark_DriverLocation from "./Mark_DriverLocation";
+import Mark_DriverArrival from "./Mark_DriverArrival";
 
 const readResponse = async (response) => {
   const result = await response.json().catch(() => null);
@@ -18,6 +19,83 @@ const readResponse = async (response) => {
   return result;
 };
 
+const DriverPopup = ({
+  id,
+  title,
+  open,
+  onClose,
+  children,
+}) => {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+
+    if (!dialog) return;
+
+    if (!open) {
+      if (dialog.open) dialog.close();
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+
+    if (!dialog.open) dialog.showModal();
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      if (dialog.open) dialog.close();
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  const handleBackdropClick = (event) => {
+    if (event.target !== event.currentTarget) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    ) {
+      onClose();
+    }
+  };
+
+  return (
+    <dialog
+      ref={dialogRef}
+      id={id}
+      className="driver-popup-dialog"
+      aria-labelledby={`${id}-title`}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={handleBackdropClick}
+    >
+      <header className="driver-popup-heading">
+        <h2 id={`${id}-title`}>{title}</h2>
+
+        <button
+          type="button"
+          className="driver-popup-close"
+          onClick={onClose}
+          aria-label={`Close ${title}`}
+          autoFocus
+        >
+          ×
+        </button>
+      </header>
+
+      {children}
+    </dialog>
+  );
+};
+
 const Mark_DriverPortal = ({ onBack }) => {
   const [driver, setDriver] = useState(null);
   const [registerOpen, setRegisterOpen] = useState(false);
@@ -26,6 +104,7 @@ const Mark_DriverPortal = ({ onBack }) => {
   const [checking, setChecking] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [activePanel, setActivePanel] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -105,6 +184,7 @@ const Mark_DriverPortal = ({ onBack }) => {
 
       setDriver(result.driver);
       setPassword("");
+      setActivePanel("");
     } catch (requestError) {
       setError(
         requestError instanceof TypeError
@@ -134,6 +214,7 @@ const Mark_DriverPortal = ({ onBack }) => {
       setDriver(null);
       setUsername("");
       setPassword("");
+      setActivePanel("");
     } catch (requestError) {
       setError(requestError.message || "Unable to log out.");
     } finally {
@@ -154,44 +235,115 @@ const Mark_DriverPortal = ({ onBack }) => {
   if (driver) {
     return (
       <main className="driver-auth-page driver-dashboard-page">
-        <section className="driver-auth-card driver-dashboard-card">
-          <header className="auth-header">
-            <h1>EASYRIDE</h1>
-            <p>Driver Dashboard</p>
+        <section className="driver-auth-card driver-dashboard-card driver-dashboard-compact">
+          <header className="driver-dashboard-heading">
+            <div>
+              <h1>EASYRIDE</h1>
+              <p>Driver Dashboard</p>
+            </div>
+
+            <button
+              type="button"
+              className="driver-logout-button"
+              onClick={handleLogout}
+              disabled={loading}
+            >
+              {loading ? "Logging out..." : "Logout"}
+            </button>
           </header>
 
-          <h2>Welcome, {driver.full_name}!</h2>
+          <h2 className="driver-welcome">
+            Welcome, {driver.full_name}!
+          </h2>
 
-          <dl className="driver-profile-details">
-            <dt>Plate Number</dt>
-            <dd>{driver.plate_number}</dd>
+          <section
+            className="driver-profile-card"
+            aria-labelledby="driver-profile-title"
+          >
+            <h3 id="driver-profile-title">
+              Driver and Vehicle Information
+            </h3>
 
-            <dt>Username</dt>
-            <dd>{driver.username}</dd>
+            <dl className="driver-compact-details">
+              <div>
+                <dt>Plate Number</dt>
+                <dd>{driver.plate_number}</dd>
+              </div>
 
-            <dt>Address</dt>
-            <dd>{driver.address}</dd>
+              <div>
+                <dt>Username</dt>
+                <dd>{driver.username}</dd>
+              </div>
 
-            <dt>Contact Number</dt>
-            <dd>{driver.contact_number}</dd>
-          </dl>
+              <div>
+                <dt>Address</dt>
+                <dd>{driver.address}</dd>
+              </div>
 
-          <Mark_DriverLocation />
+              <div>
+                <dt>Contact Number</dt>
+                <dd>{driver.contact_number}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <div
+            className="driver-dashboard-actions"
+            role="group"
+            aria-label="Driver tools"
+          >
+            <button
+              type="button"
+              className="driver-tool-button"
+              aria-haspopup="dialog"
+              aria-controls="driver-gps-panel"
+              onClick={() => setActivePanel("gps")}
+            >
+              <strong>GPS Location</strong>
+              <span>Manage your location sharing</span>
+            </button>
+
+            <button
+              type="button"
+              className="driver-tool-button"
+              aria-haspopup="dialog"
+              aria-controls="driver-arrival-panel"
+              onClick={() => setActivePanel("arrival")}
+            >
+              <strong>Terminal Arrival</strong>
+              <span>Check your terminal location</span>
+            </button>
+          </div>
+
+          <p className="driver-tools-note">
+            Closing the GPS popup does not stop active
+            location sharing. Open GPS Location to stop
+            sharing.
+          </p>
+
+          <DriverPopup
+            id="driver-gps-panel"
+            title="GPS Location"
+            open={activePanel === "gps"}
+            onClose={() => setActivePanel("")}
+          >
+            <Mark_DriverLocation />
+          </DriverPopup>
+
+          <DriverPopup
+            id="driver-arrival-panel"
+            title="Terminal Arrival"
+            open={activePanel === "arrival"}
+            onClose={() => setActivePanel("")}
+          >
+            <Mark_DriverArrival />
+          </DriverPopup>
 
           {error && (
             <p className="auth-error" role="alert">
               {error}
             </p>
           )}
-
-          <button
-            type="button"
-            className="auth-submit"
-            onClick={handleLogout}
-            disabled={loading}
-          >
-            {loading ? "Logging out..." : "Logout"}
-          </button>
         </section>
       </main>
     );

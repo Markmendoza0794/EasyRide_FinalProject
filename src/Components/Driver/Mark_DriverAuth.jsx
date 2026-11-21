@@ -15,36 +15,48 @@ const registrationFields = [
     label: "Full Name",
     type: "text",
     maxLength: 150,
-  },
-  {
-    name: "address",
-    label: "Address",
-    type: "text",
-    maxLength: 255,
+    autoComplete: "name",
+    placeholder: "Enter your full name",
   },
   {
     name: "contact_number",
     label: "Contact Number",
     type: "tel",
     maxLength: 20,
+    autoComplete: "tel",
+    placeholder: "Enter your contact number",
+  },
+  {
+    name: "address",
+    label: "Address",
+    type: "text",
+    maxLength: 255,
+    autoComplete: "street-address",
+    placeholder: "Enter your address",
   },
   {
     name: "plate_number",
     label: "Plate Number",
     type: "text",
     maxLength: 30,
+    autoComplete: "off",
+    placeholder: "Enter your plate number",
   },
   {
     name: "username",
     label: "Username",
     type: "text",
     maxLength: 100,
+    autoComplete: "username",
+    placeholder: "Choose a username",
   },
   {
     name: "password",
     label: "Password",
     type: "password",
     maxLength: 64,
+    autoComplete: "new-password",
+    placeholder: "Create a password",
   },
 ];
 
@@ -118,7 +130,9 @@ const Mark_DriverAuth = ({ onBack }) => {
       }
 
       setForm({ ...initialForm });
-      setMessage("Driver registered successfully!");
+      setMessage(
+        "Driver registered successfully! You can now log in."
+      );
     } catch (requestError) {
       setError(
         requestError instanceof TypeError
@@ -131,7 +145,7 @@ const Mark_DriverAuth = ({ onBack }) => {
   };
 
   return (
-    <main className="driver-auth-page">
+    <main className="driver-auth-page driver-registration-page">
       <div className="driver-auth-card">
         <button
           type="button"
@@ -139,16 +153,23 @@ const Mark_DriverAuth = ({ onBack }) => {
           onClick={onBack}
           disabled={loading}
         >
-          Back to Home
+          ← Back to Login
         </button>
 
         <header className="auth-header">
-          <h1>EASYRIDE</h1>
-          <p>Driver and Vehicle Registration</p>
+          <h1>EasyRide Driver</h1>
+          <p>Balayan UV Express</p>
         </header>
 
-        <form onSubmit={handleRegister}>
-          <h2>Register as Driver</h2>
+        <form
+          className="driver-registration-form"
+          onSubmit={handleRegister}
+          aria-busy={loading}
+        >
+          <div className="driver-registration-heading">
+            <h2>Create Your Account</h2>
+            <p>Enter your driver and vehicle details.</p>
+          </div>
 
           {error && (
             <p className="auth-error" role="alert">
@@ -174,18 +195,26 @@ const Mark_DriverAuth = ({ onBack }) => {
                 type={field.type}
                 value={form[field.name]}
                 onChange={handleChange}
+                placeholder={field.placeholder}
                 maxLength={field.maxLength}
-                minLength={field.name === "password" ? 8 : undefined}
-                autoComplete={
+                minLength={
+                  field.name === "password" ? 8 : undefined
+                }
+                autoComplete={field.autoComplete}
+                aria-describedby={
                   field.name === "password"
-                    ? "new-password"
-                    : field.name === "username"
-                      ? "username"
-                      : undefined
+                    ? "driver-password-help"
+                    : undefined
                 }
                 disabled={loading}
                 required
               />
+
+              {field.name === "password" && (
+                <small id="driver-password-help">
+                  Use 8 to 64 characters.
+                </small>
+              )}
             </div>
           ))}
 
@@ -194,8 +223,19 @@ const Mark_DriverAuth = ({ onBack }) => {
             className="auth-submit"
             disabled={loading}
           >
-            {loading ? "Registering..." : "Register as Driver"}
+            {loading ? "Creating Account..." : "Sign Up"}
           </button>
+
+          <p className="driver-registration-footer">
+            Already have an account?{" "}
+            <button
+              type="button"
+              onClick={onBack}
+              disabled={loading}
+            >
+              Login
+            </button>
+          </p>
         </form>
       </div>
     </main>
