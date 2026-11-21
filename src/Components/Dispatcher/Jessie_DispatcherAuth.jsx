@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
+import Jessie_TerminalMonitoring from "./Jessie_TerminalMonitoring";
 import "./dispatcher.css";
 
 const dashboardSections = [
-  {
-    title: "Terminal Monitoring",
-    description: "View vehicle arrivals and terminal presence.",
-    wbs: "2.1.2",
-  },
   {
     title: "Seat Assignments",
     description: "Manage occupied and available seats.",
@@ -47,9 +43,7 @@ const loadDashboard = async (signal) => {
     signal,
   });
 
-  if (response.status === 401) {
-    return null;
-  }
+  if (response.status === 401) return null;
 
   const result = await readResponse(response);
 
@@ -164,9 +158,7 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
       setUsername("");
       setPassword("");
     } catch (requestError) {
-      setError(
-        requestError.message || "Unable to log out."
-      );
+      setError(requestError.message || "Unable to log out.");
     } finally {
       setLoading(false);
     }
@@ -190,7 +182,6 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
             <p className="dispatcher-eyebrow">
               EASYRIDE TERMINAL OPERATIONS
             </p>
-
             <h1>Dispatcher Dashboard</h1>
             <p>Welcome, {dispatcher.full_name}!</p>
           </div>
@@ -215,12 +206,13 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
           <h2>Dispatcher Account</h2>
           <p>Name: {dispatcher.full_name}</p>
           <p>Username: {dispatcher.username}</p>
-          <p>Authenticated dispatcher access</p>
         </section>
+
+        <Jessie_TerminalMonitoring />
 
         <section
           className="dispatcher-dashboard-grid"
-          aria-label="Dispatcher modules"
+          aria-label="Upcoming dispatcher modules"
         >
           {dashboardSections.map((section) => (
             <article
@@ -261,18 +253,13 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
             alt="EasyRide"
             className="dispatcher-auth-logo"
           />
-
           <p className="dispatcher-eyebrow">
             TERMINAL OPERATIONS
           </p>
-
           <h1 id="dispatcher-login-title">
             Dispatcher Login
           </h1>
-
-          <p>
-            Access for authorized terminal dispatchers.
-          </p>
+          <p>Access for authorized terminal dispatchers.</p>
         </header>
 
         <form onSubmit={handleSubmit}>
@@ -286,7 +273,6 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
             <label htmlFor="dispatcher-username">
               Username
             </label>
-
             <input
               id="dispatcher-username"
               name="username"
@@ -307,7 +293,6 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
             <label htmlFor="dispatcher-password">
               Password
             </label>
-
             <input
               id="dispatcher-password"
               name="password"

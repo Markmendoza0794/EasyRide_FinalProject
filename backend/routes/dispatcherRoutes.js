@@ -1,5 +1,6 @@
 import express from "express";
 import * as dispatcherController from "../controllers/dispatcherController.js";
+import * as dispatcherArrivalController from "../controllers/dispatcherArrivalController.js";
 import requireDispatcher from "../middleware/requireDispatcher.js";
 
 const router = express.Router();
@@ -30,6 +31,19 @@ router.get(
   "/dashboard",
   requireDispatcher,
   dispatcherController.getDispatcherDashboard
+);
+
+router.get(
+  "/arrivals",
+  requireDispatcher,
+  dispatcherArrivalController.getActiveArrivals
+);
+
+router.post(
+  "/arrivals/:requestId/review",
+  requireRequestHeader,
+  requireDispatcher,
+  dispatcherArrivalController.reviewArrivalRequest
 );
 
 router.post(
