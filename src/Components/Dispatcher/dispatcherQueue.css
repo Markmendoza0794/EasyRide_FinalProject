@@ -1,0 +1,200 @@
+main.dispatcher-dashboard .dispatcher-queue-panel {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid #d5e2ed;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(246, 250, 255, 0.95),
+    rgba(234, 242, 249, 0.9)
+  );
+  color: #123451;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-heading,
+main.dispatcher-dashboard .dispatcher-queue-controls,
+main.dispatcher-dashboard .dispatcher-queue-card > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-heading > div {
+  min-width: 0;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-heading h2 {
+  margin: 4px 0 8px;
+  font-size: 1.4rem;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-heading p {
+  margin: 0;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-refresh {
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 1px solid #b9cddd;
+  border-radius: 12px;
+  background: white;
+  color: #123451;
+  font: inherit;
+  cursor: pointer;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #d5e2ed;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card header > span {
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: #e4edf6;
+  text-transform: capitalize;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card dt {
+  font-size: 0.8rem;
+  color: #526b82;
+  font-weight: 700;
+}
+
+main.dispatcher-dashboard .dispatcher-queue-card dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  main.dispatcher-dashboard .dispatcher-queue-panel,
+  main.dispatcher-dashboard .dispatcher-queue-card {
+    padding: 16px;
+  }
+
+  main.dispatcher-dashboard .dispatcher-queue-card dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  main.dispatcher-dashboard .dispatcher-queue-controls,
+  main.dispatcher-dashboard .dispatcher-queue-controls button {
+    width: 100%;
+  }
+}
+dialog.queue-confirm-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(460px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 28px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-top: 4px solid #ffb526;
+  border-radius: 24px;
+  background: linear-gradient(
+    145deg,
+    rgba(246, 251, 255, 0.96),
+    rgba(222, 235, 247, 0.94)
+  );
+  color: #123451;
+  font-family: inherit;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 80px rgba(0, 20, 45, 0.35);
+}
+
+dialog.queue-confirm-dialog::backdrop {
+  background: rgba(5, 25, 45, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+dialog.queue-confirm-dialog .queue-confirm-eyebrow {
+  margin: 0 0 12px;
+  color: #805000;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+dialog.queue-confirm-dialog h2 {
+  margin: 0 0 14px;
+  color: #123451;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+dialog.queue-confirm-dialog #queue-confirm-description {
+  margin: 0;
+  color: #405d76;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+dialog.queue-confirm-dialog .queue-confirm-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+dialog.queue-confirm-dialog .queue-confirm-actions button {
+  flex: 1;
+  min-height: 46px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+dialog.queue-confirm-dialog .queue-confirm-cancel {
+  border: 1px solid #b9cddd;
+  background: rgba(255, 255, 255, 0.8);
+  color: #123451;
+}
+
+dialog.queue-confirm-dialog .queue-confirm-submit {
+  border: 1px solid #eda019;
+  background: linear-gradient(135deg, #ffc34b, #f6a619);
+  color: #092849;
+}
+
+dialog.queue-confirm-dialog button:focus-visible {
+  outline: 3px solid #3277b0;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  dialog.queue-confirm-dialog {
+    padding: 24px 20px;
+  }
+
+  dialog.queue-confirm-dialog .queue-confirm-actions {
+    flex-direction: column-reverse;
+  }
+}
