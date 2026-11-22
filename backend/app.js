@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import dispatcherRoutes from "./routes/dispatcherRoutes.js";
 import driverRoutes from "./routes/driverRoutes.js";
+import passengerRoutes from "./routes/passengerRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -42,6 +43,7 @@ app.use(["/driver", "/dispatcher"], (req, res, next) => {
 
 app.use("/driver", driverRoutes);
 app.use("/dispatcher", dispatcherRoutes);
+app.use("/passenger", passengerRoutes);
 
 app.use((error, req, res, next) => {
   if (res.headersSent) {

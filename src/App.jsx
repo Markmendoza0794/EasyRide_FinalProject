@@ -3,6 +3,7 @@ import "./style.css";
 
 import Jessie_DispatcherAuth from "./Components/Dispatcher/Jessie_DispatcherAuth";
 import Mark_DriverPortal from "./Components/Driver/Mark_DriverPortal";
+import Alexis_PassengerPage from "./Components/Passenger/Alexis_PassengerPage";
 
 import Navbar from "./Components/Home/Navbar";
 import Hero from "./Components/Home/Hero";
@@ -18,6 +19,10 @@ import AccessModal from "./Components/Home/AccessModal";
 const getCurrentPage = () => {
   if (window.location.hash === "#driver") {
     return "driver";
+  }
+
+  if (window.location.hash === "#passenger") {
+    return "passenger";
   }
 
   if (window.location.hash === "#dispatcher") {
@@ -47,6 +52,14 @@ const App = () => {
   const openDriver = () => {
     window.location.hash = "driver";
     setCurrentPage("driver");
+    setMenuOpen(false);
+    setAccessOpen(false);
+    window.scrollTo(0, 0);
+  };
+
+  const openPassenger = () => {
+    window.location.hash = "passenger";
+    setCurrentPage("passenger");
     setMenuOpen(false);
     setAccessOpen(false);
     window.scrollTo(0, 0);
@@ -107,6 +120,10 @@ const App = () => {
     return <Mark_DriverPortal onBack={goHome} />;
   }
 
+  if (currentPage === "passenger") {
+    return <Alexis_PassengerPage onBack={goHome} />;
+  }
+
   if (currentPage === "dispatcher") {
     return <Jessie_DispatcherAuth onBack={goHome} />;
   }
@@ -125,6 +142,7 @@ const App = () => {
         setAccessOpen={setAccessOpen}
         openDriver={openDriver}
         openDispatcher={openDispatcher}
+        openPassenger={openPassenger}
       />
 
       <Hero setAccessOpen={setAccessOpen} />
