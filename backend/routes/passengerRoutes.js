@@ -1,3 +1,4 @@
+import * as passengerAvailabilityController from "../controllers/passengerAvailabilityController.js";
 import express from "express";
 import * as passengerSeatController from "../controllers/passengerSeatController.js";
 
@@ -11,6 +12,11 @@ router.use((req, res, next) => {
 router.get(
   "/seats",
   passengerSeatController.getSeatAvailability
+);
+
+router.get(
+  "/vans",
+  passengerAvailabilityController.getVanAvailability
 );
 
 export default router;

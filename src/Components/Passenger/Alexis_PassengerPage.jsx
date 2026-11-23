@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Alexis_PassengerSeats from "./Alexis_PassengerSeats";
+import Alexis_PassengerVans from "./Alexis_PassengerVans";
 import "./passengerSeats.css";
 
 const Alexis_PassengerPage = ({ onBack }) => {
@@ -25,7 +25,7 @@ const Alexis_PassengerPage = ({ onBack }) => {
       setError("");
 
       try {
-        const response = await fetch("/passenger/seats", {
+        const response = await fetch("/passenger/vans", {
           credentials: "omit",
           cache: "no-store",
           signal: controller.signal,
@@ -35,7 +35,7 @@ const Alexis_PassengerPage = ({ onBack }) => {
 
         if (!response.ok) {
           throw new Error(
-            result?.message || "Unable to load seat information."
+            result?.message || "Unable to load van information."
           );
         }
 
@@ -43,7 +43,7 @@ const Alexis_PassengerPage = ({ onBack }) => {
           !Array.isArray(result?.vans) ||
           !Number.isFinite(Date.parse(result.fetched_at))
         ) {
-          throw new Error("Invalid seat information received.");
+          throw new Error("Invalid van information received.");
         }
 
         if (!active) return;
@@ -61,7 +61,7 @@ const Alexis_PassengerPage = ({ onBack }) => {
         setLastUpdated("");
         setError(
           requestError.name === "AbortError"
-            ? "The request timed out. Please refresh seats."
+            ? "The request timed out. Please refresh vans."
             : requestError instanceof TypeError
               ? "Cannot connect to the server. Please try again."
               : requestError.message
@@ -94,7 +94,7 @@ const Alexis_PassengerPage = ({ onBack }) => {
   }, []);
 
   return (
-    <Alexis_PassengerSeats
+    <Alexis_PassengerVans
       vans={vans}
       loading={loading}
       error={error}

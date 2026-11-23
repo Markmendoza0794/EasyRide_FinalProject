@@ -1,3 +1,4 @@
+import * as passengerAvailabilityController from "../controllers/passengerAvailabilityController.js";
 import express from "express";
 import * as dispatcherController from "../controllers/dispatcherController.js";
 import * as dispatcherArrivalController from "../controllers/dispatcherArrivalController.js";
@@ -130,6 +131,19 @@ router.post(
   requireRequestHeader,
   requireDispatcher,
   dispatcherEtaController.saveTripEta
+);
+
+router.get(
+  "/queue/:queueId/boarding",
+  requireDispatcher,
+  passengerAvailabilityController.getBoarding
+);
+
+router.post(
+  "/queue/:queueId/boarding",
+  requireRequestHeader,
+  requireDispatcher,
+  passengerAvailabilityController.saveBoarding
 );
 
 export default router;
