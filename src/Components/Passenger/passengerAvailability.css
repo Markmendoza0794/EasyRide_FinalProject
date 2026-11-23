@@ -1,0 +1,84 @@
+.passenger-van-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.passenger-van-tabs button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #a7bfd3;
+  border-radius: 10px;
+  background: #fff;
+  color: #153954;
+  font: inherit;
+  cursor: pointer;
+}
+
+.passenger-van-tabs button[aria-pressed="true"] {
+  background: #153954;
+  color: #fff;
+}
+
+.passenger-van-tabs button:focus-visible {
+  outline: 3px solid #075fbc;
+  outline-offset: 3px;
+}
+
+.passenger-van-badge {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.passenger-van-destination {
+  margin: 18px 0 6px;
+}
+
+.passenger-van-waiting,
+.passenger-van-scheduled {
+  background: #e7eff7;
+  color: #153954;
+}
+
+.passenger-van-boarding {
+  background: #e6f5ed;
+  color: #17613f;
+}
+
+.passenger-van-full {
+  background: #fff0d5;
+  color: #805000;
+}
+
+.passenger-van-departed,
+.passenger-van-unavailable {
+  background: #edf2f6;
+  color: #3d5366;
+}
+
+.dispatcher-boarding-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+  padding: 12px 0;
+  border-top: 1px solid #cfdeea;
+}
+
+.dispatcher-boarding-control p {
+  margin: 0;
+}
+
+.dispatcher-boarding-control .dispatcher-error {
+  flex-basis: 100%;
+}
+
+@media (max-width: 480px) {
+  .passenger-van-tabs button {
+    flex: 1 1 140px;
+  }
+}

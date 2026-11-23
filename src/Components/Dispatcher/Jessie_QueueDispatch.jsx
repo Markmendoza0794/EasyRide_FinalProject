@@ -1,3 +1,4 @@
+import Alexis_BoardingControl from "./Alexis_BoardingControl";
 import { useEffect, useRef, useState } from "react";
 import "./dispatcherQueue.css";
 import QueueConfirmDialog from "./QueueConfirmDialog";
@@ -415,6 +416,16 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
                 Complete Returned Trip
               </button>
             )}
+            {entry.status === "waiting" &&
+              entry.id === queue.next_departure_id && (
+                <Alexis_BoardingControl
+                  queueId={entry.id}
+                  refreshKey={updatedAt?.getTime()}
+                  disabled={blocked}
+                  onChange={refreshQueue}
+                  onBusyChange={setActing}
+                />
+              )}
             <Jessie_TripDetails
               entry={entry}
               refreshKey={updatedAt?.getTime()}
