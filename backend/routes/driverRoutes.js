@@ -1,6 +1,8 @@
 import express from "express";
 import * as driverController from "../controllers/driverController.js";
 import * as driverLocationController from "../controllers/driverLocationController.js";
+import * as driverArrivalController from "../controllers/driverArrivalController.js";
+import * as driverQueueController from "../controllers/driverQueueController.js";
 import requireDriver from "../middleware/requireDriver.js";
 
 const router = express.Router();
@@ -49,6 +51,32 @@ router.post(
   requireRequestHeader,
   requireDriver,
   driverLocationController.updateLocation
+);
+
+router.post(
+  "/arrival-check",
+  requireRequestHeader,
+  requireDriver,
+  driverArrivalController.checkArrivalLocation
+);
+
+router.post(
+  "/arrival-request",
+  requireRequestHeader,
+  requireDriver,
+  driverArrivalController.createArrivalRequest
+);
+
+router.get(
+  "/arrival-request",
+  requireDriver,
+  driverArrivalController.getArrivalRequest
+);
+
+router.get(
+  "/queue",
+  requireDriver,
+  driverQueueController.getDriverQueue
 );
 
 export default router;
