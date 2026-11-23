@@ -1,8 +1,9 @@
-﻿const AccessModal = ({
+const AccessModal = ({
   accessOpen,
   setAccessOpen,
   openDriver,
   openDispatcher,
+  openPassenger,
 }) => {
   const closeModal = () => {
     setAccessOpen(false);
@@ -46,7 +47,7 @@
         </div>
 
         <div className="access-cards modal-access-cards">
-          <article className="access-card disabled-access-card">
+          <article className="access-card">
             <img
               className="access-card-image"
               src="/images/passenger.png"
@@ -69,7 +70,7 @@
               <button
                 type="button"
                 className="card-link"
-                disabled
+                onClick={openPassenger}
               >
                 Continue as Passenger →
               </button>
@@ -138,8 +139,7 @@
         </div>
 
         <p className="modal-note">
-          Driver and dispatcher account access is available.
-          Passenger access will be added separately.
+          Passenger information, driver access, and dispatcher access are available.
         </p>
       </div>
     </div>

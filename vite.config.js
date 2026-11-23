@@ -1,4 +1,4 @@
-﻿import { defineConfig } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -6,6 +6,10 @@ export default defineConfig({
   server: {
     proxy: {
       "/driver": {
+        target: "http://127.0.0.1:3000",
+        changeOrigin: true,
+      },
+      "/passenger": {
         target: "http://127.0.0.1:3000",
         changeOrigin: true,
       },

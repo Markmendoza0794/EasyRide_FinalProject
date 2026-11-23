@@ -1,0 +1,161 @@
+.passenger-seats-page {
+  box-sizing: border-box;
+  width: min(1100px, 100%);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 32px 20px;
+  color: #153954;
+}
+
+.passenger-seats-page * {
+  box-sizing: border-box;
+}
+
+.passenger-seats-header {
+  margin-bottom: 24px;
+}
+
+.passenger-seats-header h1 {
+  margin: 8px 0;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.passenger-eyebrow {
+  color: #8a5600;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.passenger-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.passenger-actions button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid #a7bfd3;
+  border-radius: 10px;
+  background: #fff;
+  color: #153954;
+  font: inherit;
+  cursor: pointer;
+}
+
+.passenger-actions button:last-child {
+  border-color: #e7a115;
+  background: #ffb822;
+  font-weight: 700;
+}
+
+.passenger-actions button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.passenger-actions button:focus-visible {
+  outline: 3px solid #075fbc;
+  outline-offset: 3px;
+}
+
+.passenger-note {
+  margin: 8px 0;
+  color: #46637b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.passenger-seats-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+  gap: 16px;
+}
+
+.passenger-seat-card,
+.passenger-message {
+  margin: 0;
+  padding: 20px;
+  border: 1px solid #cfdeea;
+  border-radius: 16px;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.passenger-seat-card > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.passenger-seat-card h2 {
+  margin: 4px 0;
+  font-size: 1.25rem;
+}
+
+.passenger-waiting {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e7eff7;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.passenger-seat-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.passenger-seat-counts dt {
+  color: #46637b;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.passenger-seat-counts dd {
+  margin: 8px 0 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.passenger-status {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #edf2f6;
+  line-height: 1.5;
+}
+
+.passenger-status-available {
+  background: #e6f5ed;
+  color: #17613f;
+}
+
+.passenger-status-full {
+  background: #fff0d5;
+  color: #805000;
+}
+
+.passenger-error {
+  background: #fff0f0;
+  color: #942323;
+}
+
+@media (max-width: 480px) {
+  .passenger-seats-page {
+    padding: 20px 12px;
+  }
+
+  .passenger-actions button {
+    flex: 1;
+  }
+
+  .passenger-seat-card {
+    padding: 16px;
+  }
+}
