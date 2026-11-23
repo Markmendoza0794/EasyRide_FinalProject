@@ -18,11 +18,12 @@ const Jessie_SeatManagement = ({
   tripStatus,
   refreshKey,
   disabled,
+  embedded = false,
 }) => {
   const actionRef = useRef(false);
   const requestRef = useRef(null);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(embedded);
   const [seats, setSeats] = useState(null);
   const [capacity, setCapacity] = useState("");
   const [occupiedCount, setOccupiedCount] = useState("");
@@ -165,7 +166,8 @@ const Jessie_SeatManagement = ({
       aria-label="Trip seat management"
       aria-busy={busy}
     >
-      <button
+      {!embedded && (
+<button
         type="button"
         className="dispatcher-queue-refresh"
         aria-expanded={open}
@@ -174,6 +176,7 @@ const Jessie_SeatManagement = ({
       >
         {open ? "Hide Seats" : "Manage / View Seats"}
       </button>
+      )}
 
       {open && (
         <div className="dispatcher-seats-content">

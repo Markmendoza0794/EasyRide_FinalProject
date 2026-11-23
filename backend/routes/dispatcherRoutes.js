@@ -5,6 +5,8 @@ import * as dispatcherQueueController from "../controllers/dispatcherQueueContro
 import * as dispatcherSeatController from "../controllers/dispatcherSeatController.js";
 import requireDispatcher from "../middleware/requireDispatcher.js";
 
+import * as dispatcherEtaController from "../controllers/dispatcherEtaController.js";
+
 const router = express.Router();
 
 const requireRequestHeader = (req, res, next) => {
@@ -115,6 +117,19 @@ router.post(
   "/logout",
   requireRequestHeader,
   dispatcherController.logoutDispatcher
+);
+
+router.get(
+  "/queue/:queueId/eta",
+  requireDispatcher,
+  dispatcherEtaController.getTripEta
+);
+
+router.post(
+  "/queue/:queueId/eta",
+  requireRequestHeader,
+  requireDispatcher,
+  dispatcherEtaController.saveTripEta
 );
 
 export default router;

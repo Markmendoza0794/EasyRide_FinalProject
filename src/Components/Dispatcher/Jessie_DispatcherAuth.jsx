@@ -1,24 +1,8 @@
 import { useEffect, useState } from "react";
 import Jessie_TerminalMonitoring from "./Jessie_TerminalMonitoring";
+import Jessie_QueueDispatch from "./Jessie_QueueDispatch";
 import "./dispatcher.css";
-
-const dashboardSections = [
-  {
-    title: "Seat Assignments",
-    description: "Manage occupied and available seats.",
-    wbs: "2.1.3",
-  },
-  {
-    title: "Queue and Dispatch",
-    description: "Manage FIFO queues and trip status.",
-    wbs: "2.1.4",
-  },
-  {
-    title: "Estimated Arrival Times",
-    description: "View estimated vehicle arrival times.",
-    wbs: "2.1.5",
-  },
-];
+import "./dispatcherWorkspace.css";
 
 const readResponse = async (response) => {
   const result = await response.json().catch(() => null);
@@ -58,6 +42,7 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [dispatcher, setDispatcher] = useState(null);
+  const [workspace, setWorkspace] = useState("queue");
   const [checkingSession, setCheckingSession] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -155,6 +140,7 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
       await readResponse(response);
 
       setDispatcher(null);
+      setWorkspace("queue");
       setUsername("");
       setPassword("");
     } catch (requestError) {
@@ -176,7 +162,7 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
 
   if (dispatcher) {
     return (
-      <main className="dispatcher-dashboard">
+      <main className="dispatcher-dashboard dispatcher-workspace">
         <header className="dispatcher-dashboard-header">
           <div>
             <p className="dispatcher-eyebrow">
@@ -202,32 +188,36 @@ const Jessie_DispatcherAuth = ({ onBack }) => {
           </p>
         )}
 
-        <section className="dispatcher-account-panel">
-          <h2>Dispatcher Account</h2>
-          <p>Name: {dispatcher.full_name}</p>
-          <p>Username: {dispatcher.username}</p>
-        </section>
 
-        <Jessie_TerminalMonitoring />
 
-        <section
-          className="dispatcher-dashboard-grid"
-          aria-label="Upcoming dispatcher modules"
+        <nav
+          className="dispatcher-workspace-nav"
+          aria-label="Dispatcher sections"
         >
-          {dashboardSections.map((section) => (
-            <article
-              className="dispatcher-module-card"
-              key={section.wbs}
-            >
-              <span>WBS {section.wbs}</span>
-              <h2>{section.title}</h2>
-              <p>{section.description}</p>
-              <p className="dispatcher-pending">
-                Not yet connected
-              </p>
-            </article>
-          ))}
-        </section>
+          <button
+            type="button"
+            aria-pressed={workspace === "queue"}
+            disabled={loading}
+            onClick={() => setWorkspace("queue")}
+          >
+            Queue &amp; Dispatch
+          </button>
+
+          <button
+            type="button"
+            aria-pressed={workspace === "arrivals"}
+            disabled={loading}
+            onClick={() => setWorkspace("arrivals")}
+          >
+            Arrivals
+          </button>
+        </nav>
+
+        {workspace === "queue" ? (
+          <Jessie_QueueDispatch />
+        ) : (
+          <Jessie_TerminalMonitoring />
+        )}
       </main>
     );
   }

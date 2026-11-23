@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./dispatcherQueue.css";
 import QueueConfirmDialog from "./QueueConfirmDialog";
-import Jessie_SeatManagement from "./Jessie_SeatManagement";
+
+
+import Jessie_TripDetails from "./Jessie_TripDetails";
 
 const readResponse = async (response) => {
   const result = await response.json().catch(() => null);
@@ -44,6 +46,8 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
   const actionInProgress = useRef(false);
 
   const [queue, setQueue] = useState(null);
+  const [expandedTripId, setExpandedTripId] = useState(null);
+  const [showHistory, setShowHistory] = useState(false);
   const [loading, setLoading] = useState(true);
   const [acting, setActing] = useState(false);
   const [error, setError] = useState("");
@@ -165,6 +169,20 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
     }
   };
 
+  const activeTrips =
+    queue?.entries.filter(
+      (entry) => entry.status !== "completed"
+    ) ?? [];
+
+  const completedTrips =
+    queue?.entries.filter(
+      (entry) => entry.status === "completed"
+    ) ?? [];
+
+  const visibleTrips = showHistory
+    ? completedTrips
+    : activeTrips;
+
   const busy = loading || acting;
 
   const blocked =
@@ -243,12 +261,15 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
         </p>
       )}
 
-      <p className="dispatcher-monitoring-note">
+      <details className="dispatcher-queue-help">
+        <summary>Queue Guidelines</summary>
+        <p className="dispatcher-monitoring-note">
         FIFO uses request time among confirmed, unallocated
         arrivals. Future-date trips cannot depart early.
         Returning vans need a new confirmed arrival before
         receiving another allocation.
       </p>
+      </details>
 
       {error && (
         <p className="dispatcher-error" role="alert">
@@ -281,15 +302,52 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
 
       {!loading &&
         !error &&
-        queue?.entries.length === 0 && (
+        visibleTrips.length === 0 && (
           <p>
-            No allocated trips. Confirm an arrival, then
-            select Allocate Confirmed Arrivals.
+            {showHistory
+              ? "No completed trips for today."
+              : "No active trips. Confirm an arrival, then allocate it to the queue."}
           </p>
         )}
 
+      <div
+        className="dispatcher-trip-views"
+        role="group"
+        aria-label="Trip lists"
+      >
+        <button
+          type="button"
+          aria-pressed={!showHistory}
+          disabled={busy || Boolean(pendingConfirmation)}
+          onClick={() => {
+            setShowHistory(false);
+            setExpandedTripId(null);
+          }}
+        >
+          Active Trips ({activeTrips.length})
+        </button>
+
+        <button
+          type="button"
+          aria-pressed={showHistory}
+          disabled={busy || Boolean(pendingConfirmation)}
+          onClick={() => {
+            setShowHistory(true);
+            setExpandedTripId(null);
+          }}
+        >
+          Trip History ({completedTrips.length})
+        </button>
+      </div>
+
+      {showHistory && (
+        <p className="dispatcher-monitoring-note">
+          Completed trips for the current Philippine travel date.
+        </p>
+      )}
+
       <div className="dispatcher-queue-list">
-        {queue?.entries.map((entry) => (
+        {visibleTrips.map((entry) => (
           <article
             className="dispatcher-queue-card"
             key={entry.id}
@@ -317,29 +375,7 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
                 <dt>Waiting Position on Travel Date</dt>
                 <dd>{entry.queue_position ?? "—"}</dd>
               </div>
-
-              <div>
-                <dt>Arrival Request</dt>
-                <dd>#{entry.request_id}</dd>
-              </div>
-
-              <div>
-                <dt>Departure</dt>
-                <dd>{formatTime(entry.departed_at)}</dd>
-              </div>
-
-              <div>
-                <dt>Completion</dt>
-                <dd>{formatTime(entry.completed_at)}</dd>
-              </div>
             </dl>
-
-            <Jessie_SeatManagement
-              queueId={entry.id}
-              tripStatus={entry.status}
-              refreshKey={updatedAt?.getTime()}
-              disabled={blocked}
-            />
 
             {entry.status === "waiting" && (
               <button
@@ -379,6 +415,17 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
                 Complete Returned Trip
               </button>
             )}
+            <Jessie_TripDetails
+              entry={entry}
+              refreshKey={updatedAt?.getTime()}
+              disabled={blocked}
+              expanded={expandedTripId === entry.id}
+              onToggle={() =>
+                setExpandedTripId((current) =>
+                  current === entry.id ? null : entry.id
+                )
+              }
+            />
           </article>
         ))}
       </div>

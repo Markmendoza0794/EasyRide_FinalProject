@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Jessie_QueueDispatch from "./Jessie_QueueDispatch";
+
 
 const formatTime = (value) => {
   if (!value) return "Not yet confirmed";
@@ -32,6 +32,7 @@ const Jessie_TerminalMonitoring = () => {
   const freshLocationSeconds = 60;
   const [now, setNow] = useState(Date.now());
   const [arrivals, setArrivals] = useState([]);
+  const [arrivalView, setArrivalView] = useState("pending");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -178,6 +179,19 @@ const Jessie_TerminalMonitoring = () => {
     return () => window.clearInterval(timer);
   }, []);
 
+  const pendingArrivals = arrivals.filter(
+    (arrival) => arrival.status === "pending"
+  );
+
+  const confirmedArrivals = arrivals.filter(
+    (arrival) => arrival.status === "confirmed"
+  );
+
+  const visibleArrivals =
+    arrivalView === "pending"
+      ? pendingArrivals
+      : confirmedArrivals;
+
   const busy = loading || reviewingId !== null;
 
   return (
@@ -218,12 +232,15 @@ const Jessie_TerminalMonitoring = () => {
         </p>
       )}
 
-      <p className="dispatcher-monitoring-note">
+      <details className="dispatcher-monitoring-help">
+        <summary>Arrival Guidelines</summary>
+        <p className="dispatcher-monitoring-note">
         Submitted coordinates are saved with the request. Latest GPS
         shows the last location retrieved using Refresh Arrivals.
         GPS is marked stale after 60 seconds. Confirm only after
         checking the driver and vehicle physically at the terminal.
       </p>
+      </details>
 
       {error && (
         <p className="dispatcher-error" role="alert">
@@ -241,12 +258,36 @@ const Jessie_TerminalMonitoring = () => {
         <p role="status">Loading arrival requests...</p>
       )}
 
-      {!loading && !error && arrivals.length === 0 && (
-        <p>No active arrival requests.</p>
+      {!loading && !error && visibleArrivals.length === 0 && (
+        <p>No {arrivalView} arrival requests.</p>
       )}
 
+      <div
+        className="dispatcher-arrival-views"
+        role="group"
+        aria-label="Arrival lists"
+      >
+        <button
+          type="button"
+          disabled={busy}
+          aria-pressed={arrivalView === "pending"}
+          onClick={() => setArrivalView("pending")}
+        >
+          Pending ({pendingArrivals.length})
+        </button>
+
+        <button
+          type="button"
+          disabled={busy}
+          aria-pressed={arrivalView === "confirmed"}
+          onClick={() => setArrivalView("confirmed")}
+        >
+          Confirmed ({confirmedArrivals.length})
+        </button>
+      </div>
+
       <div className="dispatcher-arrival-grid">
-        {arrivals.map((arrival) => {
+        {visibleArrivals.map((arrival) => {
           const latest = arrival.latest_location;
           const recordedAt = latest ? Date.parse(latest.recorded_at) : NaN;
           const ageSeconds = (now - recordedAt) / 1000;
@@ -287,7 +328,14 @@ const Jessie_TerminalMonitoring = () => {
                 </span>
               </header>
 
-              <dl className="dispatcher-arrival-details">
+              <p className="dispatcher-arrival-summary">
+                Plate: <strong>{arrival.plate_number}</strong>
+                {" · "}Requested: {formatTime(arrival.requested_at)}
+              </p>
+
+              <details>
+                <summary>Request Details</summary>
+                <dl className="dispatcher-arrival-details">
                 <div>
                   <dt>Request Number</dt>
                   <dd>{arrival.request_id}</dd>
@@ -343,8 +391,11 @@ const Jessie_TerminalMonitoring = () => {
                   <dd>{formatTime(arrival.confirmed_at)}</dd>
                 </div>
               </dl>
+              </details>
 
-              <section aria-label="Latest saved GPS">
+              <details>
+                <summary>GPS: {presenceLabel} · {locationStatus}</summary>
+                <section aria-label="Latest saved GPS">
                 <h4>Latest Saved GPS</h4>
                 <p><strong>GPS-based terminal presence: {presenceLabel}</strong></p>
                 <p className="dispatcher-monitoring-note">{presenceReason}</p>
@@ -362,8 +413,11 @@ const Jessie_TerminalMonitoring = () => {
                   </dl>
                 )}
               </section>
+              </details>
 
               {arrival.status === "pending" && (
+                <details>
+                  <summary>Review Arrival</summary>
                 <div className="dispatcher-review-form">
                   <label className="dispatcher-presence-check">
                     <input
@@ -446,24 +500,18 @@ const Jessie_TerminalMonitoring = () => {
                     </button>
                   </div>
                 </div>
+                </details>
               )}
 
               {arrival.status === "confirmed" && (
                 <p className="dispatcher-monitoring-note">
-                  Terminal arrival confirmed. Queue assignment
-                  is handled separately.
+                  Confirmed. Manage allocation and trip status under Queue &amp; Dispatch.
                 </p>
               )}
             </article>
           );
         })}
            </div>
-
-      <Jessie_QueueDispatch
-        onTripChange={() =>
-          setRefreshCount((count) => count + 1)
-        }
-      />
     </section>
   );
 };

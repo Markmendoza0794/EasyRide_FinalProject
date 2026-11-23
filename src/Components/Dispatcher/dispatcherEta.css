@@ -1,0 +1,53 @@
+.dispatcher-eta {
+  margin: 18px 0;
+  padding-top: 14px;
+  border-top: 1px solid #cbd9e5;
+}
+
+.dispatcher-eta-content {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.dispatcher-eta-content h4,
+.dispatcher-eta-content p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.dispatcher-eta-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.dispatcher-eta-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dispatcher-eta-controls input {
+  box-sizing: border-box;
+  width: 120px;
+  max-width: 100%;
+  min-height: 42px;
+  padding: 8px;
+  border: 1px solid #9db2c6;
+  border-radius: 8px;
+  color: #123652;
+  background: #fff;
+  font: inherit;
+}
+
+.dispatcher-eta button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dispatcher-eta-outdated {
+  color: #8a4800;
+}
