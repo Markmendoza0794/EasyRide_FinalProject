@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./dispatcherQueue.css";
 import QueueConfirmDialog from "./QueueConfirmDialog";
+import Jessie_SeatManagement from "./Jessie_SeatManagement";
 
 const readResponse = async (response) => {
   const result = await response.json().catch(() => null);
@@ -165,6 +166,7 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
   };
 
   const busy = loading || acting;
+
   const blocked =
     busy || Boolean(error) || Boolean(pendingConfirmation);
 
@@ -331,6 +333,13 @@ const Jessie_QueueDispatch = ({ onTripChange }) => {
                 <dd>{formatTime(entry.completed_at)}</dd>
               </div>
             </dl>
+
+            <Jessie_SeatManagement
+              queueId={entry.id}
+              tripStatus={entry.status}
+              refreshKey={updatedAt?.getTime()}
+              disabled={blocked}
+            />
 
             {entry.status === "waiting" && (
               <button

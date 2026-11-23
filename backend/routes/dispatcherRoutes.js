@@ -2,6 +2,7 @@ import express from "express";
 import * as dispatcherController from "../controllers/dispatcherController.js";
 import * as dispatcherArrivalController from "../controllers/dispatcherArrivalController.js";
 import * as dispatcherQueueController from "../controllers/dispatcherQueueController.js";
+import * as dispatcherSeatController from "../controllers/dispatcherSeatController.js";
 import requireDispatcher from "../middleware/requireDispatcher.js";
 
 const router = express.Router();
@@ -66,6 +67,7 @@ router.post(
   requireDispatcher,
   (req, res, next) => {
     req.params.action = "depart";
+
     return dispatcherQueueController.updateTrip(
       req,
       res,
@@ -80,12 +82,33 @@ router.post(
   requireDispatcher,
   (req, res, next) => {
     req.params.action = "complete";
+
     return dispatcherQueueController.updateTrip(
       req,
       res,
       next
     );
   }
+);
+
+router.get(
+  "/queue/:queueId/seats",
+  requireDispatcher,
+  dispatcherSeatController.getTripSeats
+);
+
+router.post(
+  "/queue/:queueId/seats/capacity",
+  requireRequestHeader,
+  requireDispatcher,
+  dispatcherSeatController.saveTripCapacity
+);
+
+router.post(
+  "/queue/:queueId/seats/assignment",
+  requireRequestHeader,
+  requireDispatcher,
+  dispatcherSeatController.updateSeatAssignment
 );
 
 router.post(

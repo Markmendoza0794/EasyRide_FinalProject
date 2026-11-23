@@ -1,0 +1,55 @@
+.dispatcher-seats {
+  margin: 18px 0;
+  padding-top: 14px;
+  border-top: 1px solid #cbd9e5;
+}
+
+.dispatcher-seats-content {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.dispatcher-seats-content h4,
+.dispatcher-seats-content p {
+  margin: 0;
+}
+
+.dispatcher-seats-content p {
+  overflow-wrap: anywhere;
+}
+
+.dispatcher-seats-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.dispatcher-seat-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.dispatcher-seat-controls input {
+  box-sizing: border-box;
+  width: 110px;
+  max-width: 100%;
+  min-height: 42px;
+  padding: 8px;
+  border: 1px solid #9db2c6;
+  border-radius: 8px;
+  color: #123652;
+  background: #fff;
+  font: inherit;
+}
+
+.dispatcher-seat-controls button {
+  min-height: 42px;
+}
+
+.dispatcher-seats button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
