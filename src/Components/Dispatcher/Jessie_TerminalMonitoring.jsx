@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Jessie_QueueDispatch from "./Jessie_QueueDispatch";
 
 const formatTime = (value) => {
   if (!value) return "Not yet confirmed";
@@ -456,7 +457,13 @@ const Jessie_TerminalMonitoring = () => {
             </article>
           );
         })}
-      </div>
+           </div>
+
+      <Jessie_QueueDispatch
+        onTripChange={() =>
+          setRefreshCount((count) => count + 1)
+        }
+      />
     </section>
   );
 };

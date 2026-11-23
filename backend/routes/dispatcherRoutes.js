@@ -1,6 +1,7 @@
 import express from "express";
 import * as dispatcherController from "../controllers/dispatcherController.js";
 import * as dispatcherArrivalController from "../controllers/dispatcherArrivalController.js";
+import * as dispatcherQueueController from "../controllers/dispatcherQueueController.js";
 import requireDispatcher from "../middleware/requireDispatcher.js";
 
 const router = express.Router();
@@ -44,6 +45,47 @@ router.post(
   requireRequestHeader,
   requireDispatcher,
   dispatcherArrivalController.reviewArrivalRequest
+);
+
+router.get(
+  "/queue",
+  requireDispatcher,
+  dispatcherQueueController.getQueue
+);
+
+router.post(
+  "/queue/allocate",
+  requireRequestHeader,
+  requireDispatcher,
+  dispatcherQueueController.allocateConfirmedArrivals
+);
+
+router.post(
+  "/queue/:queueId/depart",
+  requireRequestHeader,
+  requireDispatcher,
+  (req, res, next) => {
+    req.params.action = "depart";
+    return dispatcherQueueController.updateTrip(
+      req,
+      res,
+      next
+    );
+  }
+);
+
+router.post(
+  "/queue/:queueId/complete",
+  requireRequestHeader,
+  requireDispatcher,
+  (req, res, next) => {
+    req.params.action = "complete";
+    return dispatcherQueueController.updateTrip(
+      req,
+      res,
+      next
+    );
+  }
 );
 
 router.post(
