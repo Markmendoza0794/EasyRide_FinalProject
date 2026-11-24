@@ -92,8 +92,8 @@ const Alexis_PassengerVans = ({
 
         {lastUpdated && !error && (
           <p className="passenger-note">
-            Last refreshed: {lastUpdated} (Philippine time).
-            Refreshes every 30 seconds while this page is visible.
+            Last updated: {lastUpdated} (Philippine time).
+            Van information updates automatically.
           </p>
         )}
       </header>
