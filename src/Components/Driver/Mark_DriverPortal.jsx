@@ -370,7 +370,7 @@ const Mark_DriverPortal = ({ onBack }) => {
         </button>
 
         <header className="auth-header">
-          <h1>EASYRIDE</h1>
+          <img src="/logo.png" alt="EasyRide Balayan UV Express" />
           <p>Driver Login</p>
         </header>
 

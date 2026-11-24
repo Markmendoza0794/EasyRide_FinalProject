@@ -49,7 +49,6 @@ const Alexis_PassengerVans = ({
   loading = false,
   error = "",
   onBack,
-  onRefresh,
   lastUpdated = "",
 }) => {
   const [view, setView] = useState("terminal");
@@ -83,13 +82,7 @@ const Alexis_PassengerVans = ({
           <button type="button" onClick={onBack}>
             Back to Home
           </button>
-          <button
-            type="button"
-            onClick={onRefresh}
-            disabled={loading}
-          >
-            {loading ? "Refreshing..." : "Refresh Vans"}
-          </button>
+
         </div>
 
         <p className="passenger-note">

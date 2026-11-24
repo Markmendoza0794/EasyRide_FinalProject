@@ -1,0 +1,442 @@
+.easyride-app { background: #fff; color: #153954; }
+.easyride-app .er-hero, .easyride-app .er-route, .easyride-app .er-board, .easyride-app .er-about { box-sizing: border-box; width: min(1120px, calc(100% - 40px)); margin-inline: auto; scroll-margin-top: 100px; }
+.easyride-app .er-hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding: 110px 0 32px; min-height: 380px; }
+.easyride-app .er-eyebrow { margin: 0 0 10px; color: #805000; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.easyride-app .er-hero h1 { color: #153954; font-size: clamp(30px, 3.5vw, 46px); line-height: 1.12; margin: 0 0 16px; max-width: 530px; }
+.easyride-app .er-hero-copy > p:not(.er-eyebrow) { font-size: 16px; line-height: 1.65; max-width: 490px; margin: 0; }
+.easyride-app .er-hero-image img { width: 100%; max-height: 300px; object-fit: contain; display: block; }
+.easyride-app .er-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+.easyride-app .er-actions a, .easyride-app .er-actions button, .easyride-app .er-board-heading button { min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; padding: 11px 17px; border: 1px solid #adc0d1; border-radius: 6px; color: #153954; background: #fff; font: inherit; font-size: 14px; text-decoration: none; cursor: pointer; }
+.easyride-app .er-actions .er-primary { background: #ffb822; border-color: #e7a115; font-weight: 700; }
+.easyride-app .er-route { display: grid; grid-template-columns: 1fr 1fr; padding: 20px 24px; background: #f1f5f8; border-block: 1px solid #d8e2ea; gap: 20px; }
+.easyride-app .er-route span, .easyride-app .er-route strong { display: block; }
+.easyride-app .er-route span { font-size: 12px; color: #52687c; margin-bottom: 5px; }
+.easyride-app .er-route strong { font-size: 15px; }
+.easyride-app .er-board { padding-block: 32px; }
+.easyride-app .er-board-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.easyride-app .er-board h2, .easyride-app .er-about h2 { font-size: 26px; line-height: 1.25; color: #153954; margin: 0 0 8px; }
+.easyride-app .er-board-heading p:not(.er-eyebrow), .easyride-app .er-board-note, .easyride-app .er-board-footer p { margin: 0; font-size: 14px; line-height: 1.6; color: #52687c; }
+.easyride-app .er-board .er-board-note { margin: 14px 0; font-size: 12px; }
+.easyride-app .er-table-scroll { overflow-x: auto; border: 1px solid #d8e2ea; border-radius: 7px; }
+.easyride-app .er-table { border-collapse: collapse; width: 100%; min-width: 650px; text-align: left; font-size: 14px; }
+.easyride-app .er-table caption { text-align: left; padding: 10px 16px; color: #52687c; font-size: 12px; background: #f6f8fa; }
+.easyride-app .er-table th { background: #153954; color: #fff; font-weight: 600; }
+.easyride-app .er-table th, .easyride-app .er-table td { padding: 15px 16px; border-bottom: 1px solid #e0e7ed; vertical-align: middle; }
+.easyride-app .er-table tbody tr:last-child td { border-bottom: 0; }
+.easyride-app .er-table small { display: block; margin-top: 5px; color: #52687c; font-size: 11px; }
+.easyride-app .er-status { display: inline-block; padding: 5px 9px; border-radius: 4px; font-size: 12px; font-weight: 600; background: #edf2f6; color: #153954; white-space: nowrap; }
+.easyride-app .er-status-boarding { background: #e1f2e8; color: #17613f; }
+.easyride-app .er-status-full { background: #fff0d5; color: #805000; }
+.easyride-app .er-board-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 15px; }
+.easyride-app .er-board-footer a { color: #153954; font-weight: 700; font-size: 14px; padding: 10px 0; white-space: nowrap; text-decoration: underline; }
+.easyride-app .er-empty, .easyride-app .er-board-error { padding: 22px; background: #f1f5f8; border-radius: 6px; line-height: 1.6; }
+.easyride-app .er-board-error { background: #fff0f0; color: #942323; }
+.easyride-app .er-about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 1px solid #d8e2ea; padding: 25px 0 32px; }
+.easyride-app .er-about h2 { font-size: 20px; }
+.easyride-app .er-about p { margin: 0; color: #52687c; line-height: 1.7; font-size: 14px; }
+.easyride-app .er-about #contact { scroll-margin-top: 100px; }
+.easyride-app .er-actions :focus-visible, .easyride-app .er-board :focus-visible { outline: 3px solid #1573ad; outline-offset: 3px; }
+.easyride-app .er-board button:disabled { cursor: wait; opacity: .65; }
+@media (max-width: 700px) {
+ .easyride-app .er-hero { grid-template-columns: 1fr; gap: 14px; padding-top: 95px; }
+ .easyride-app .er-hero-image img { max-height: 210px; }
+ .easyride-app .er-route { grid-template-columns: 1fr; gap: 14px; padding: 18px; }
+ .easyride-app .er-board-heading, .easyride-app .er-board-footer { align-items: flex-start; flex-direction: column; }
+ .easyride-app .er-about { grid-template-columns: 1fr; gap: 22px; }
+ .easyride-app .er-board-heading button { align-self: flex-start; }
+}
+
+/* HERO BACKGROUND START */
+.easyride-app .er-hero {
+  width: 100%;
+  max-width: none;
+  min-height: 560px;
+  margin: 0;
+  padding: 150px max(24px, calc((100% - 1120px) / 2)) 64px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #0b2943;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(7, 30, 51, 0.94) 0%,
+      rgba(7, 30, 51, 0.76) 43%,
+      rgba(7, 30, 51, 0.30) 100%
+    ),
+    url("/images/easyride-hero-van.jpg");
+  background-size: cover;
+  background-position: center 55%;
+  background-repeat: no-repeat;
+}
+
+.easyride-app .er-hero-image {
+  display: none;
+}
+
+.easyride-app .er-hero-copy {
+  width: 100%;
+  max-width: 560px;
+}
+
+.easyride-app .er-hero .er-eyebrow {
+  color: #ffba32;
+}
+
+.easyride-app .er-hero h1 {
+  color: #ffffff;
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.12;
+}
+
+.easyride-app .er-hero-copy > p:not(.er-eyebrow) {
+  color: #edf3f8;
+}
+
+.easyride-app .er-hero .er-actions button {
+  color: #ffffff;
+  background: rgba(10, 35, 57, 0.65);
+  border-color: #b5c6d5;
+}
+
+.easyride-app .er-hero .er-primary {
+  color: #102f49;
+  background: #ffb822;
+}
+
+@media (max-width: 700px) {
+  .easyride-app .er-hero {
+    min-height: 500px;
+    padding: 125px 24px 44px;
+    background-position: 60% center;
+  }
+
+  .easyride-app .er-hero-copy {
+    max-width: 480px;
+  }
+
+  .easyride-app .er-hero .er-actions {
+    gap: 10px;
+  }
+}
+/* HERO BACKGROUND END */
+
+/* NAV SIZE START */
+.easyride-app .navbar a,
+.easyride-app .navbar button {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .easyride-app .navbar a,
+  .easyride-app .navbar button {
+    font-size: 17px;
+  }
+}
+/* NAV SIZE END */
+
+/* TERMINAL GALLERY START */
+.easyride-app .er-gallery {
+  box-sizing: border-box;
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 24px 0 30px;
+  border-top: 1px solid #d8e2ea;
+}
+.easyride-app .er-gallery > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.easyride-app .er-gallery h2 { margin: 0 0 8px; color: #153954; font-size: 24px; }
+.easyride-app .er-gallery header p { margin: 0; color: #52687c; font-size: 14px; line-height: 1.6; }
+.easyride-app .er-gallery button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #adc0d1;
+  border-radius: 6px;
+  background: white;
+  color: #153954;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.easyride-app .er-gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.easyride-app .er-gallery figure, .easyride-app .er-terminal-photo { margin: 0; }
+.easyride-app .er-gallery figure a { display: block; border-radius: 8px; overflow: hidden; }
+.easyride-app .er-gallery img { display: block; width: 100%; height: 220px; object-fit: cover; object-position: center 65%; }
+.easyride-app .er-gallery figcaption, .easyride-app .er-terminal-photo figcaption { padding-top: 9px; color: #52687c; font-size: 13px; }
+.easyride-app .er-about .er-about-subheading { margin: 18px 0 8px; color: #153954; font-size: 16px; }
+.easyride-app .er-about p + p { margin-top: 12px; }
+.easyride-app .er-terminal-photo { grid-column: 1 / -1; }
+.easyride-app .er-terminal-photo img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: center 65%; border-radius: 8px; }
+.easyride-app .er-gallery :focus-visible { outline: 3px solid #1573ad; outline-offset: 3px; }
+@media (max-width: 700px) {
+  .easyride-app .er-gallery > header { flex-direction: column; align-items: flex-start; }
+  .easyride-app .er-gallery-grid { grid-template-columns: 1fr; }
+  .easyride-app .er-terminal-photo img { height: 220px; }
+}
+/* TERMINAL GALLERY END */
+
+/* WIDE LOGO START */
+.easyride-app .navbar .brand {
+  flex-shrink: 0;
+}
+
+.easyride-app .navbar .brand img {
+  display: block;
+  width: 280px;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.easyride-app .navbar .brand-text {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .easyride-app .navbar .brand {
+    max-width: calc(100% - 90px);
+  }
+
+  .easyride-app .navbar .brand img {
+    width: 210px;
+  }
+}
+/* WIDE LOGO END */
+
+/* EASYRIDE UNIFIED ROLE GLASS START */
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) {
+  --er-text: #f7fbff;
+  --er-muted: #d6e5f2;
+  --er-line: rgba(255,255,255,.28);
+  --er-panel: rgba(9,35,57,.84);
+  --er-inner: rgba(255,255,255,.09);
+  color: var(--er-text);
+  color-scheme: dark;
+}
+
+main.driver-auth-page:not(.driver-dashboard-page) {
+  min-height: 100dvh;
+  background: linear-gradient(rgba(7,28,47,.60),rgba(7,28,47,.80)), url("/images/driver.png") center / cover no-repeat;
+}
+
+main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace {
+  min-height: 100dvh;
+  background: linear-gradient(rgba(7,28,47,.65),rgba(7,28,47,.85)), url("/images/easyride-hero-van.jpg") center / cover no-repeat;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.driver-auth-card, .dispatcher-auth-card, .dispatcher-dashboard-header, .dispatcher-workspace-nav, .dispatcher-monitoring, .dispatcher-queue-panel, .dispatcher-account-dropdown, .dispatcher-account-panel, .dispatcher-module-card) {
+  background: var(--er-panel);
+  border: 1px solid var(--er-line);
+  border-radius: 20px;
+  color: var(--er-text);
+  box-shadow: 0 18px 48px rgba(0,0,0,.25);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.driver-auth-card, .dispatcher-auth-card, .dispatcher-dashboard-header) {
+  border-top: 3px solid #ffb820;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-dashboard-header {
+  padding: 24px;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-workspace-nav {
+  padding: 12px;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.driver-profile-card, .driver-tool-button, .dispatcher-arrival-card, .dispatcher-queue-card, .dispatcher-trip-panel, .dispatcher-seats, .dispatcher-eta, .dispatcher-boarding-control) {
+  background: var(--er-inner);
+  border-color: var(--er-line);
+  color: var(--er-text);
+}
+
+dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog {
+  background: rgba(9,35,57,.94) !important;
+  color: #f7fbff;
+  border: 1px solid rgba(255,255,255,.30);
+  border-top: 3px solid #ffb820;
+  box-shadow: 0 24px 70px rgba(0,0,0,.40);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.dispatcher-trip-dialog-header, .driver-popup-heading) {
+  background: rgba(255,255,255,.06);
+  border-color: var(--er-line);
+  color: var(--er-text);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-trip-panel.dispatcher-trip-dialog-body {
+  background: transparent;
+  color: var(--er-text);
+}
+
+dialog.driver-popup-dialog::backdrop, dialog.dispatcher-trip-dialog::backdrop, dialog.queue-confirm-dialog::backdrop {
+  background: rgba(3,17,30,.65);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(h1,h2,h3,h4,h5,h6,p,dt,dd,label,summary,legend,small) {
+  color: var(--er-text) !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.driver-tools-note, .dispatcher-monitoring-note, .dispatcher-arrival-summary, .dispatcher-development-note, .dispatcher-message) {
+  color: var(--er-muted) !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.dispatcher-eyebrow, .queue-confirm-eyebrow) {
+  color: #ffca63 !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) a {
+  color: #ffda83;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) button {
+  color: var(--er-text);
+  background: rgba(255,255,255,.10);
+  border-color: var(--er-line);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-back, .dispatcher-back, .driver-register-link) {
+  color: var(--er-text);
+  background: transparent;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.driver-tool-button, .driver-popup-close, .dispatcher-queue-refresh, .queue-confirm-cancel) {
+  color: var(--er-text);
+  background: rgba(255,255,255,.10);
+  border: 1px solid var(--er-line);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.dispatcher-workspace-nav, .dispatcher-arrival-views, .dispatcher-trip-views, .dispatcher-trip-tabs) button {
+  color: var(--er-text);
+  background: rgba(255,255,255,.10);
+  border-color: var(--er-line);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-submit, .driver-logout-button, .dispatcher-login-button, .queue-confirm-submit) {
+  background: #ffb820;
+  border-color: #ffb820;
+  color: #092849 !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.dispatcher-workspace-nav, .dispatcher-arrival-views, .dispatcher-trip-views, .dispatcher-trip-tabs) :is(button[aria-pressed="true"], button[aria-selected="true"]) {
+  background: #ffb820;
+  border-color: #ffb820;
+  color: #092849 !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-reject-button {
+  background: #922b3d;
+  border-color: #ff9eae;
+  color: #ffffff !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) button :is(span,strong,small) {
+  color: inherit !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) button:hover:not(:disabled) {
+  box-shadow: inset 0 0 0 1px #ffca63;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(button,input,select,textarea):disabled {
+  opacity: .60;
+  cursor: not-allowed;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea) {
+  color-scheme: light;
+  background: #f7fbff;
+  color: #123451 !important;
+  border: 1px solid #b9cddd;
+  font-size: 16px;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(input,textarea)::placeholder {
+  color: #52687c; opacity: 1;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(input[type="checkbox"],input[type="radio"]) {
+  accent-color: #ffb820;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(button,a,input,select,textarea,summary):focus-visible {
+  outline: 3px solid #ffca63;
+  outline-offset: 3px;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-error, .dispatcher-error) {
+  background: #ffe9ed;
+  color: #7d182a !important;
+  border-color: #f5a4b3;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-error, .dispatcher-error) :is(p,strong,span) {
+  color: #7d182a !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-review-success {
+  background: #dff5e7;
+  color: #155735 !important;
+  border-color: #8bd4a8;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-review-success :is(p,strong,span) {
+  color: #155735 !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-eta-outdated {
+  color: #ffda83 !important;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.dispatcher-arrival-status, .dispatcher-queue-card > header > span) {
+  background: #dce9f4;
+  color: #123451 !important;
+  border-color: #b9cddd;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) .dispatcher-trip-timestamps {
+  border-color: var(--er-line);
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-header h1, .dispatcher-auth-heading h1) {
+  font-size: clamp(32px,5vw,42px);
+  line-height: 1.15;
+}
+
+:is(main.driver-auth-page, main.dispatcher-auth-page, main.dispatcher-dashboard.dispatcher-workspace, dialog.driver-popup-dialog, dialog.dispatcher-trip-dialog, dialog.queue-confirm-dialog) :is(.auth-header img, .dispatcher-auth-logo) {
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  margin: 0 auto 16px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  main.dispatcher-dashboard.dispatcher-workspace .dispatcher-dashboard-header { padding: 18px; }
+  main.dispatcher-auth-page .dispatcher-auth-logo,
+  main.driver-auth-page .auth-header img { width: 220px; }
+}
+/* EASYRIDE UNIFIED ROLE GLASS END */

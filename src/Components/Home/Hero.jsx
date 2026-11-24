@@ -1,40 +1,15 @@
+const Hero = ({ setAccessOpen }) => (
+  <section className="er-hero" id="home">
+    <div className="er-hero-copy">
+      <p className="er-eyebrow">EASYRIDE BALAYAN UV EXPRESS</p>
+      <h1>Plan your next trip to Pasay.</h1>
+      <p>Check available vans, remaining seats, and boarding status before heading to the terminal.</p>
+      <div className="er-actions">
 
-const Hero = ({ setAccessOpen }) => {
-  return (
-    <section className="hero" id="home">
-      <div className="hero-content">
-        <span className="hero-label">
-          PUV TERMINAL MANAGEMENT SYSTEM
-        </span>
-
-        <h1>
-          Your Journey,
-          <br />
-          <span>Made Easier.</span>
-        </h1>
-
-        <p>
-          A convenient way to check UV Express van availability
-          and travel information from Balayan to Pasay.
-        </p>
-
-        <div className="hero-start-wrapper">
-          <button
-            className="hero-get-started"
-            onClick={() => setAccessOpen(true)}
-          >
-            GET STARTED <span>→</span>
-          </button>
-        </div>
-
-        <div className="hero-route">
-          <span>Balayan</span>
-          <span className="route-line">━━━━━━➜</span>
-          <span>Pasay</span>
-        </div>
+        <button type="button" onClick={() => setAccessOpen(true)}>Choose Your Access</button>
       </div>
-    </section>
-  );
-};
-
+    </div>
+    <div className="er-hero-image"><img src="/images/easyride-hero-van.jpg" alt="White Toyota Hiace passenger van" /></div>
+  </section>
+);
 export default Hero;

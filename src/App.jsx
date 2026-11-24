@@ -1,5 +1,7 @@
+import VanGallery from "./Components/Home/VanGallery";
 import { useEffect, useState } from "react";
 import "./style.css";
+import "./Components/Home/homepage.css";
 
 import Jessie_DispatcherAuth from "./Components/Dispatcher/Jessie_DispatcherAuth";
 import Mark_DriverPortal from "./Components/Driver/Mark_DriverPortal";
@@ -9,10 +11,7 @@ import Navbar from "./Components/Home/Navbar";
 import Hero from "./Components/Home/Hero";
 import QuickInfo from "./Components/Home/QuickInfo";
 import About from "./Components/Home/About";
-import Features from "./Components/Home/Features";
-import Routes from "./Components/Home/Routes";
 import PassengerPreview from "./Components/Home/PassengerPreview";
-import Contact from "./Components/Home/Contact";
 import Footer from "./Components/Home/Footer";
 import AccessModal from "./Components/Home/AccessModal";
 
@@ -148,11 +147,9 @@ const App = () => {
       <Hero setAccessOpen={setAccessOpen} />
 
       <QuickInfo />
-      <About />
-      <Features />
-      <Routes />
       <PassengerPreview />
-      <Contact />
+      <VanGallery />
+      <About />
       <Footer />
     </div>
   );

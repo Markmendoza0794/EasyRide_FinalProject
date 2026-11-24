@@ -157,7 +157,7 @@ const Mark_DriverAuth = ({ onBack }) => {
         </button>
 
         <header className="auth-header">
-          <h1>EasyRide Driver</h1>
+          <img src="/logo.png" alt="EasyRide Balayan UV Express" />
           <p>Balayan UV Express</p>
         </header>
 
